@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: #ff0000;
+            margin-bottom: 10px;
+        }
+
+        .strength {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <form id="registrationForm">
+        <label for="email">E-mail:</label>
+        <input type="text" id="email" name="email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" onkeyup="checkPasswordStrength()" required>
+        <div class="strength" id="passwordStrength"></div>
+
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+        <label for="registrationDate">Registration Date:</label>
+        <input type="date" id="registrationDate" name="registrationDate" required>
+
+        <label for="customerName">Name of the Customer:</label>
+        <input type="text" id="customerName" name="customerName" required>
+
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="country" required>
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" required>
+
+        <label for="mobileNumber">Mobile Number:</label>
+        <input type="tel" id="mobileNumber" name="mobileNumber" required>
+
+        <div id="errorDisplay" class="error"></div>
+
+        <button type="button" onclick="validateForm()">Register</button>
+    </form>
+
+    <script>
+        function validateForm() {
+            var email = document.getElementById('email').value;
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+            if (!emailRegex.test(email)) {
+                document.getElementById('errorDisplay').innerHTML = 'Invalid email format.';
+                return;
+            }
+
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                document.getElementById('errorDisplay').innerHTML = 'Passwords do not match.';
+                return;
+            }
+
+
+            document.getElementById('errorDisplay').innerHTML = '';
+
+            alert('Registration successful!');
+        }
+
+        function checkPasswordStrength() {
+            var password = document.getElementById('password').value;
+            var strengthDisplay = document.getElementById('passwordStrength');
+
+            
+            if (/^[A-Za-z]+$/.test(password)) {
+                strengthDisplay.innerHTML = 'პაროლის სიძლიერე: სუსტი (მარტო ინგლისურ ასოებს შეიცავს)';
+            } else if (/^[A-Za-z0-9]+$/.test(password)) {
+                strengthDisplay.innerHTML = 'პაროლის სიძლიერე: საშუალო (ინგლისურ ასოებს და რიცხვებს)';
+            } else if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password)) {
+                strengthDisplay.innerHTML = 'პაროლის სიძლიერე: ძლიერი (ინგლისურ ასოებს რიცხვებს და სიმბოლოებს)';
+            } else {
+                strengthDisplay.innerHTML = '';
+            }
+        }
+    </script>
+
+</body>
+
+</html>
